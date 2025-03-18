@@ -64,4 +64,4 @@ Refer to the codebase for detailed API documentation.
 We welcome contributions! Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to contribute.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
