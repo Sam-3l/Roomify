@@ -71,7 +71,7 @@ class TimeTableOccurrencesView(APIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         # Generate occurrence datetimes between start_date and end_date using django-recurrence.
-        occurrences = list(timetable.recurrence.occurrences(start_date, end_date))
+        occurrences = list(timetable.recurrence.between(start_date, end_date))
         results = []
         for occ in occurrences:
             occ_date = occ.date()

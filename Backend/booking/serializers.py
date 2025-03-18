@@ -58,6 +58,7 @@ class TimeTableSerializer(serializers.ModelSerializer):
 class BookingSerializer(serializers.ModelSerializer):
     timetable = TimeTableSerializer(read_only=True)
     timetable_id = serializers.PrimaryKeyRelatedField(queryset=TimeTable.objects.all(), source='timetable', write_only=True)
+    occurrence_date = serializers.DateField(format="%d-%m-%Y")
 
     class Meta:
         model = Booking

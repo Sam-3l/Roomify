@@ -9,6 +9,9 @@ class Room(models.Model):
     capacity = models.IntegerField()
     location = models.CharField(max_length=200)
 
+    class Meta:
+        ordering = ['name'] 
+
     def __str__(self):
         return self.name
 
@@ -48,6 +51,8 @@ class Booking(models.Model):
 
     class Meta:
         unique_together = ('timetable', 'occurrence_date')
+        ordering = ['occurrence_date']  # Ensures bookings are ordered by date
+
 
     def __str__(self):
         return f"{self.timetable.course} on {self.occurrence_date} by {self.user.username}"
