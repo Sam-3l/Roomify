@@ -8,6 +8,8 @@ Roomify helps organise and automate school lecture halls booking and usage. It p
 - Book lecture halls for specific occurrences.
 - REST API for integration with other systems.
 - Authentication and authorization for secure access.
+- Swagger and Redoc documentation for API endpoints.
+- Recurring reservations with conflict detection.
 
 ## Setup Instructions
 
@@ -15,12 +17,12 @@ Roomify helps organise and automate school lecture halls booking and usage. It p
 - Python 3.9 or higher
 - Django 5.1
 - SQLite (default database)
+- Node.js (for the frontend)
 
-### Installation
-1. Clone the repository:
+### Backend Installation
+1. Navigate to the `Backend` directory:
    ```bash
-   git clone https://github.com/Sam-3l/Roomify
-   cd Roomify
+   cd Backend
    ```
 
 2. Create and activate a virtual environment:
@@ -44,21 +46,51 @@ Roomify helps organise and automate school lecture halls booking and usage. It p
    python manage.py runserver
    ```
 
-6. Access the application at `http://127.0.0.1:8000`.
+6. Access the backend at `http://127.0.0.1:8000`.
+
+### Frontend Installation
+1. Navigate to the `Frontend` directory:
+   ```bash
+   cd Frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Access the frontend at the URL provided by Vite (e.g., `http://127.0.0.1:5173`).
 
 ### Testing
 Run the test suite to ensure everything is working:
+
+#### Backend Tests
 ```bash
+cd Backend
 python manage.py test
 ```
 
-## API Endpoints
-- `GET /api/rooms/`: List all rooms.
-- `GET /api/timetable/`: List all timetables.
-- `GET /api/bookings/`: List all bookings.
-- `POST /api/bookings/`: Create a new booking.
+#### Frontend Linting
+```bash
+cd Frontend
+npm run lint
+```
 
-View full API docs at `docs/redoc/` and `docs/swagger/`
+## API Endpoints
+- `GET /api/courses/`: List all courses.
+- `GET /api/theatres/`: List all lecture theatres.
+- `GET /api/reservations/`: List all reservations.
+- `POST /api/reservations/`: Create a new reservation.
+- `GET /api/reservations/calendar/`: Get reservation events in a calendar-friendly format.
+
+View full API docs at:
+- Swagger: `http://127.0.0.1:8000/docs/swagger/`
+- Redoc: `http://127.0.0.1:8000/docs/redoc/`
 
 ## Contribution Guidelines
 We welcome contributions! Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to contribute.

@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
     # apps
     'booking',
-    'authentication',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
