@@ -58,7 +58,7 @@ python manage.py test
 - `GET /api/bookings/`: List all bookings.
 - `POST /api/bookings/`: Create a new booking.
 
-Refer to the codebase for detailed API documentation.
+View full API docs at `docs/redoc/` and `docs/swagger/`
 
 ## Contribution Guidelines
 We welcome contributions! Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to contribute.
