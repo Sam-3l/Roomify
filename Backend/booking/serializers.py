@@ -22,9 +22,8 @@ class LectureReservationSerializer(serializers.ModelSerializer):
         return obj.get_occurrences()
 
     def validate(self, data):
-        # Create a temporary instance with incoming data.
         instance = LectureReservation(**data)
         if self.instance:
             instance.pk = self.instance.pk
-        instance.clean()  # This will raise a ValidationError if any occurrence conflicts.
+        instance.clean()
         return data

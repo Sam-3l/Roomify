@@ -12,7 +12,7 @@ class IsAdminOrFaculty(permissions.BasePermission):
 
 class IsOwnerOrAdmin(permissions.BasePermission):
     """
-    Allow only the reservation owner or a superuser to update or delete the reservation.
+    Allow only the reservation owner or a superuser to update or delete a reservation.
     """
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
