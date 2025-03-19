@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 import datetime
+from django.utils import timezone
 from dateutil.rrule import rrule, WEEKLY
 
 class Course(models.Model):
@@ -21,10 +22,10 @@ class LectureTheatre(models.Model):
 
 class LectureReservation(models.Model):
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, related_name='reservations'
+        'Course', on_delete=models.CASCADE, related_name='reservations'
     )
     lecture_theatre = models.ForeignKey(
-        LectureTheatre, on_delete=models.CASCADE, related_name='reservations'
+        'LectureTheatre', on_delete=models.CASCADE, related_name='reservations'
     )
     # Base date for the first occurrence
     date = models.DateField()
@@ -44,10 +45,16 @@ class LectureReservation(models.Model):
     )
 
     def clean(self):
-        """
-        Validate that this reservation—and all its occurrences (if recurring)—
-        do not overlap with existing reservations.
-        """
+        # Prevent reservations in the past:
+        current_date = timezone.localdate()
+        current_time = timezone.localtime().time()
+        
+        if self.date < current_date:
+            raise ValidationError("Reservation date cannot be in the past.")
+        elif self.date == current_date and self.start_time < current_time:
+            raise ValidationError("Reservation start time must be in the future for today.")
+
+        # Basic conflict validation
         if not self.is_recurring:
             overlapping = LectureReservation.objects.filter(
                 lecture_theatre=self.lecture_theatre,
