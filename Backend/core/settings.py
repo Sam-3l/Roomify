@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'booking',
-    'recurrence',
+    'django_filters',
+    # 'recurrence',
 ]
 
 MIDDLEWARE = [
