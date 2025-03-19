@@ -1,8 +1,8 @@
 # booking/models.py
 
 from django.db import models
-from django.contrib.auth.models import User
 from recurrence.fields import RecurrenceField
+from authentication.models import User
 
 class Room(models.Model):
     name = models.CharField(max_length=100)

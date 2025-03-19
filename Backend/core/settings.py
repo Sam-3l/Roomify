@@ -27,11 +27,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    # ..3rd party
     'drf_yasg',
+    'recurrence',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # drf
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+
+    # apps
     'booking',
-    'recurrence',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -42,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -106,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "auth.User"
+AUTH_USER_MODEL = "authentication.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
