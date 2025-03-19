@@ -6,7 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # core apis
-    path('api/', include('booking.urls')),
+    path('', include('booking.urls')),
 
     # auth
     path('api/auth/', include('authentication.urls')),
@@ -15,5 +15,3 @@ urlpatterns = [
 
     # docs
     path('docs/', include('urecover.swagger_urls')),
-]
-

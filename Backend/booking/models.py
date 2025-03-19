@@ -1,58 +1,153 @@
-# booking/models.py
-
 from django.db import models
-from recurrence.fields import RecurrenceField
-from authentication.models import User
+from django.core.exceptions import ValidationError
+import datetime
+from django.utils import timezone
+from dateutil.rrule import rrule, WEEKLY
 
-class Room(models.Model):
+class Course(models.Model):
     name = models.CharField(max_length=100)
-    capacity = models.IntegerField()
-    location = models.CharField(max_length=200)
-
-    class Meta:
-        ordering = ['name']
+    code = models.CharField(max_length=20, unique=True)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
 
-class TimeTable(models.Model):
-    """
-    Represents a recurring course slot.
-    - `start_time` and `end_time` define the slot time.
-    - `recurrence` stores the recurrence rule (e.g., "RRULE:FREQ=WEEKLY;BYDAY=MO,WE").
-    """
-    course = models.CharField(max_length=200)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='timetables')
+class LectureTheatre(models.Model):
+    name = models.CharField(max_length=100)
+    capacity = models.PositiveIntegerField()
+    location = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class LectureReservation(models.Model):
+    course = models.ForeignKey(
+        'Course', on_delete=models.CASCADE, related_name='reservations'
+    )
+    lecture_theatre = models.ForeignKey(
+        'LectureTheatre', on_delete=models.CASCADE, related_name='reservations'
+    )
+    # Base date for the first occurrence
+    date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
-    recurrence = RecurrenceField(null=True, blank=True)
-
-    class Meta:
-        ordering = ['start_time']
-
-    def __str__(self):
-        return f"{self.course} in {self.room.name}"
-
-class Booking(models.Model):
-    """
-    A booking ties a user to a specific occurrence (date) of a recurring timetable.
-    """
-    STATUS_CHOICES = (
-        ('pending', 'Pending'),
-        ('confirmed', 'Confirmed'),
-        ('cancelled', 'Cancelled'),
+    reserved_by = models.ForeignKey(
+        'auth.User', on_delete=models.CASCADE, related_name='lecture_reservations'
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
-    timetable = models.ForeignKey(TimeTable, on_delete=models.CASCADE, related_name='bookings')
-    # The specific date the user is booking – must be one of the valid dates from the recurrence
-    occurrence_date = models.DateField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        unique_together = ('timetable', 'occurrence_date')
-        ordering = ['occurrence_date']  # Ensures bookings are ordered by date
+    # Recurrence fields
+    is_recurring = models.BooleanField(default=False)
+    recurrence_rule = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Recurrence rule in RRULE format (e.g., FREQ=WEEKLY;BYDAY=MO,WE;COUNT=30)"
+    )
 
+    def clean(self):
+        # Prevent reservations in the past:
+        current_date = timezone.localdate()
+        current_time = timezone.localtime().time()
+        
+        if self.date < current_date:
+            raise ValidationError("Reservation date cannot be in the past.")
+        elif self.date == current_date and self.start_time < current_time:
+            raise ValidationError("Reservation start time must be in the future for today.")
+
+        # Basic conflict validation
+        if not self.is_recurring:
+            overlapping = LectureReservation.objects.filter(
+                lecture_theatre=self.lecture_theatre,
+                date=self.date
+            ).exclude(pk=self.pk).filter(
+                start_time__lt=self.end_time,
+                end_time__gt=self.start_time,
+            )
+            if overlapping.exists():
+                raise ValidationError("This time slot overlaps with an existing reservation on the selected date.")
+        else:
+            self.check_conflicts_for_occurrences()
+
+    def get_occurrences(self):
+        """
+        Returns a list of dates on which this reservation occurs.
+        For non-recurring reservations, returns a list with just the base date.
+        For recurring reservations, uses the recurrence_rule to generate dates.
+        """
+        if not self.is_recurring or not self.recurrence_rule:
+            return [self.date]
+
+        rule_params = {}
+        for param in self.recurrence_rule.split(';'):
+            key, value = param.split('=')
+            rule_params[key] = value
+
+        count = int(rule_params.get('COUNT')) if 'COUNT' in rule_params else None
+
+        if 'BYDAY' in rule_params:
+            byday = rule_params['BYDAY'].split(',')
+            weekday_map = {'MO': 0, 'TU': 1, 'WE': 2, 'TH': 3, 'FR': 4, 'SA': 5, 'SU': 6}
+            byweekday = [weekday_map[day] for day in byday if day in weekday_map]
+        else:
+            byweekday = None
+
+        freq = rule_params.get('FREQ', 'WEEKLY')
+        if freq != 'WEEKLY':
+            raise NotImplementedError("Only WEEKLY recurrence is supported.")
+
+        dtstart = datetime.datetime.combine(self.date, self.start_time)
+        rule = rrule(
+            freq=WEEKLY,
+            dtstart=dtstart,
+            count=count,
+            byweekday=byweekday
+        )
+        occurrences = [occurrence.date() for occurrence in rule]
+        return occurrences
+
+    def check_conflicts_for_occurrences(self):
+        """
+        Checks each occurrence (date) generated by this reservation against all existing reservations.
+        """
+        my_occurrences = self.get_occurrences()
+        conflict_dates = []
+
+        # Check one-time reservations
+        for occ_date in my_occurrences:
+            qs_on_date = LectureReservation.objects.filter(
+                lecture_theatre=self.lecture_theatre,
+                date=occ_date,
+                is_recurring=False
+            ).exclude(pk=self.pk).filter(
+                start_time__lt=self.end_time,
+                end_time__gt=self.start_time,
+            )
+            if qs_on_date.exists():
+                conflict_dates.append(occ_date)
+
+            # Check recurring reservations
+            qs_recurring = LectureReservation.objects.filter(
+                lecture_theatre=self.lecture_theatre,
+                is_recurring=True
+            ).exclude(pk=self.pk)
+            for other in qs_recurring:
+                try:
+                    other_occurrences = other.get_occurrences()
+                except Exception:
+                    other_occurrences = []
+                if occ_date in other_occurrences:
+                    if other.start_time < self.end_time and other.end_time > self.start_time:
+                        conflict_dates.append(occ_date)
+        if conflict_dates:
+            conflict_dates = sorted(set(conflict_dates))
+            raise ValidationError(
+                "Conflict detected on the following date(s): " +
+                ", ".join([conflict_date.strftime("%Y-%m-%d") for conflict_date in conflict_dates])
+            )
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.timetable.course} on {self.occurrence_date} by {self.user.username}"
+        return f"{self.course.name} on {self.date} in {self.lecture_theatre.name}"
