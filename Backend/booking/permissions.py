@@ -2,7 +2,7 @@ from rest_framework import permissions
 
 class IsAdminOrFaculty(permissions.BasePermission):
     """
-    Only users in the 'Admins' or 'Faculty' groups (or superusers) are allowed to create or modify reservations.
+    Allow only users in 'Admins' or 'Faculty' groups or superusers to create or modify reservations.
     """
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
@@ -12,7 +12,7 @@ class IsAdminOrFaculty(permissions.BasePermission):
 
 class IsOwnerOrAdmin(permissions.BasePermission):
     """
-    Only the reservation owner or a superuser can update or delete a reservation.
+    Allow only the reservation owner or a superuser to update or delete a reservation.
     """
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
