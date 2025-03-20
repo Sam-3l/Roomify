@@ -9,6 +9,7 @@ Roomify helps organise and automate school lecture halls booking and usage. It p
 - REST API for integration with other systems.
 - Authentication and authorization for secure access.
 - Swagger and Redoc documentation for API endpoints.
+- Recurring reservations with conflict detection.
 
 ## Setup Instructions
 
@@ -81,11 +82,11 @@ npm run lint
 ```
 
 ## API Endpoints
-- `GET /api/rooms/`: List all rooms.
-- `GET /api/timetable/`: List all timetables.
-- `GET /api/bookings/`: List all bookings.
-- `POST /api/bookings/`: Create a new booking.
-- `GET /api/timetable/<id>/occurrences/`: Get timetable occurrences within a date range.
+- `GET /api/courses/`: List all courses.
+- `GET /api/theatres/`: List all lecture theatres.
+- `GET /api/reservations/`: List all reservations.
+- `POST /api/reservations/`: Create a new reservation.
+- `GET /api/reservations/calendar/`: Get reservation events in a calendar-friendly format.
 
 View full API docs at:
 - Swagger: `http://127.0.0.1:8000/docs/swagger/`
