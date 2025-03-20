@@ -1,12 +1,12 @@
 // src/HomePage.jsx
 import React from 'react';
 import Header from './Header/Header';
-import MainContent from './MainContent';
+import MainContent from './Hero';
 import Footer from './Footer';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen w-screen">
+    <div className="min-h-screen w-full bg-white">
       {/* Header */}
       <Header/>
 

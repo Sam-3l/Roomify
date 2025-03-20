@@ -1,12 +1,25 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Navbar from "./Navbar";
 export default function Header(){
 
     const [isOpen,setIsOpen] = useState(false);
 
+    useEffect(() => {
+        if (isOpen) {
+          document.body.style.overflowY = "hidden"; // Disable scrolling
+        } else {
+          document.body.style.overflowY = "auto"; // Enable scrolling
+        }
+    
+        return () => {
+          document.body.style.overflowY = "auto"; // Cleanup on unmount
+        };
+      }, [isOpen]);
+    
+
     return (
         <header className="w-full">
-        <div className="flex relative items-center w-full py-4 px-12 justify-between">
+        <div className="flex px-6 relative items-center w-full py-4 md:px-12 justify-between">
             {/* Logo */}
             <div className="flex text-xl font-bold text-secondary">
                Roomify

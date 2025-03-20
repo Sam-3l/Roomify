@@ -1,7 +1,7 @@
 export default function Navbar(props){
     return(
 
-            <nav  className={props.isOpen ? "max-w-screen w-[400px] p-4 bg-white border-l-1 border-secondary h-screen justify-between absolute right-0 top-0 flex flex-col items-start" : "close max-w-screen w-[400px] p-4 bg-white border-l-1 border-secondary h-screen justify-between absolute right-0 top-0 flex flex-col items-start"}>    
+            <nav  className={props.isOpen ? "max-w-screen w-[400px] p-4 bg-white border-l-1 border-secondary h-[100dvh] justify-between absolute right-0 top-0 flex flex-col items-start" : "close max-w-screen w-[400px] p-4 bg-white border-l-1 border-secondary h-screen justify-between absolute right-0 top-0 flex flex-col items-start"}>    
                 
                 <b></b>
 
