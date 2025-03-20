@@ -1,3 +1,5 @@
+# Backend/core/settings.py
+
 from pathlib import Path
 from datetime import timedelta
 
@@ -31,21 +33,22 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # ..3rd party
-    'drf_yasg',
     'recurrence',
     'dj_rest_auth',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_filters',
 
     # drf
+    'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
 
     # apps
     'booking',
-    'django_filters',
+    'authentication'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -78,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+# WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
@@ -152,7 +155,7 @@ SWAGGER_SETTINGS = {
 }
 
 # Doing this for multi-environment adaptability whenever the urls are needed
-FRONTEND_DOMAIN = "http://localhost:3000/" # For now -- would pick from env when that is set up.
+FRONTEND_DOMAIN = "http://localhost:5173/" # For now -- would pick from env when that is set up.
 BACKEND_DOMAIN = ""
 
 AUTHENTICATION_BACKENDS = (
@@ -170,7 +173,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # yh?
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_LOGIN_METHODS = {'email'}
 
 # Email message configs
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For now. STMP in production

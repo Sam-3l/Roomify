@@ -1,3 +1,5 @@
+# Backend/core/urls.py
+
 from django.contrib import admin
 from django.urls import path, include
 
@@ -14,4 +16,5 @@ urlpatterns = [
     path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
 
     # docs
-    path('docs/', include('urecover.swagger_urls')),
+    path('docs/', include('core.swagger_urls')),
+]

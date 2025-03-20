@@ -1,3 +1,5 @@
+# Backend/booking/serializers.py
+
 from rest_framework import serializers
 from .models import Course, LectureTheatre, LectureReservation
 
@@ -22,6 +24,7 @@ class LectureReservationSerializer(serializers.ModelSerializer):
         return obj.get_occurrences()
 
     def validate(self, data):
+        # Create a temporary instance to validate without persisting.
         instance = LectureReservation(**data)
         if self.instance:
             instance.pk = self.instance.pk
