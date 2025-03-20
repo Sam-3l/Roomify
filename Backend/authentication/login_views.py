@@ -27,7 +27,7 @@ class CustomLoginView(LoginView):
             token = generate_verification_token(user)
             # Build the verification URL that points to your frontend.
             verification_url = f"{settings.FRONTEND_DOMAIN}verify-email/{token}/"
-            
+           
             # Send the verification email (ensure your email settings are configured).
             send_mail(
                 subject="Verify Your Email",

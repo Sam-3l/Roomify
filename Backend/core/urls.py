@@ -8,12 +8,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # core apis
-    path('', include('booking.urls')),
+    path('api/', include('booking.urls')),
 
     # auth
-    path('api/auth/', include('authentication.urls')),
-    path('api/auth/', include('dj_rest_auth.urls')),
-    path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('auth/', include('authentication.urls')),
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),
 
     # docs
     path('docs/', include('core.swagger_urls')),

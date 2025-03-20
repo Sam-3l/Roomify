@@ -21,25 +21,25 @@ def verify_email_view(request, *args, **kwargs):
         # Unsign the token; valid for 24 hours (86400 seconds)
         email = signer.unsign(key, max_age=86400)
     except SignatureExpired:
-        logger.error("Verification link expired for token: %s", key)
+        logger.error(f"Verification link expired for token: {key}")
         return redirect(f"{settings.FRONTEND_DOMAIN}verify-email/error/?msg=expired")
     except BadSignature:
-        logger.error("Invalid verification signature for token: %s", key)
+        logger.error(f"Invalid verification signature for token: {key}")
         return redirect(f"{settings.FRONTEND_DOMAIN}verify-email/error/?msg=invalid")
 
     from .models import User
     try:
         user = User.objects.get(email=email)
     except User.DoesNotExist:
-        logger.error("User with email %s does not exist.", email)
+        logger.error(f"User with email {email} does not exist.")
         return redirect(f"{settings.FRONTEND_DOMAIN}verify-email/error/?msg=user_not_found")
 
     if not getattr(user, 'is_verified', False):
         user.is_verified = True
         user.save()
-        logger.info("User %s verified successfully.", email)
+        logger.info(f"User {email} verified successfully.")
     else:
-        logger.info("User %s was already verified.", email)
+        logger.info(f"User {email} was already verified.")
 
     # Redirect to a frontend success page to prevent token exposure.
     return redirect(f"{settings.FRONTEND_DOMAIN}verify-email/success")
@@ -51,7 +51,7 @@ def password_reset_view(request, *args, **kwargs):
     """
     uidb64 = kwargs.get("uidb64", "")
     key = kwargs.get("key", "")
-    logger.info("Password reset requested for uidb64: %s", uidb64)
+    logger.info(f"Password reset requested for uidb64: {uidb64}", )
     return redirect(f"{settings.FRONTEND_DOMAIN}reset-password/{uidb64}/{key}/")
 
 

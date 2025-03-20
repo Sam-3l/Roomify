@@ -68,7 +68,7 @@ class LectureReservationViewSet(viewsets.ModelViewSet):
                     "title": f"{reservation.course.name} in {reservation.lecture_theatre.name}",
                     "start": datetime.datetime.combine(occ_date, reservation.start_time).isoformat(),
                     "end": datetime.datetime.combine(occ_date, reservation.end_time).isoformat(),
-                    "reserved_by": reservation.reserved_by.user_name,
+                    "reserved_by": reservation.reserved_by.username,
                 }
                 events.append(event)
 

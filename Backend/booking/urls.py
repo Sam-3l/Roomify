@@ -10,5 +10,5 @@ router.register(r'theatres', LectureTheatreViewSet)
 router.register(r'reservations', LectureReservationViewSet)
 
 urlpatterns = [
-    path('api/', include(router.urls)),
+    path('', include(router.urls)),
 ]
