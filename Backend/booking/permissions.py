@@ -1,3 +1,5 @@
+# Backend/booking/permissions.py
+
 from rest_framework import permissions
 
 class IsAdminOrFaculty(permissions.BasePermission):
@@ -25,26 +27,20 @@ class IsOwnerOrAdmin(permissions.BasePermission):
 
 class CanCreateCourse(permissions.BasePermission):
     """
-    Allows creation (or modification) of courses only by superusers,
-    class reps, or lecturers.
+    Allows creation or modification of courses only by superusers, class reps, or lecturers.
     """
     def has_permission(self, request, view):
-        # Allow safe methods (e.g. GET) for everyone.
         if request.method in permissions.SAFE_METHODS:
             return True
-        # For write methods, ensure the user is authenticated.
         if not (request.user and request.user.is_authenticated):
             return False
-        # Allow if the user is superuser or has a role of class_rep or lecturer.
         return request.user.is_superuser or request.user.role in ['class_rep', 'lecturer']
 
 class CanCreateTheatre(permissions.BasePermission):
     """
-    Allows creation (or modification) of theatres only by superusers.
+    Allows creation or modification of theatres only by superusers.
     """
     def has_permission(self, request, view):
-        # Allow safe methods (e.g. GET) for everyone.
         if request.method in permissions.SAFE_METHODS:
             return True
-        # For write methods, ensure the user is authenticated and is a superuser.
         return bool(request.user and request.user.is_authenticated and request.user.is_superuser)

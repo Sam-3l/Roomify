@@ -53,28 +53,23 @@ class LectureReservation(models.Model):
     )
 
     def clean(self):
-        # Prevent reservations in the past.
         current_date = timezone.localdate()
         current_time = timezone.localtime().time()
         if self.date < current_date:
             raise ValidationError("Reservation date cannot be in the past.")
         elif self.date == current_date and self.start_time < current_time:
             raise ValidationError("Reservation start time must be in the future for today.")
-
-        # Use external service to check for conflicts.
         conflict_dates = check_reservation_conflicts(self)
         if conflict_dates:
             conflict_str = ", ".join([d.strftime("%Y-%m-%d") for d in conflict_dates])
             raise ValidationError(f"Conflict detected on the following date(s): {conflict_str}")
 
     def save(self, *args, **kwargs):
-        # Ensure atomicity in save operations.
         with transaction.atomic():
             self.clean()
             super().save(*args, **kwargs)
 
     def get_occurrences(self):
-        # Delegate occurrence generation to the service module.
         return get_occurrences(self)
 
     def __str__(self):
