@@ -1,10 +1,10 @@
 // src/HomePage.jsx
 import React from 'react';
-import Header from './components/Header';
-import MainContent from './components/Hero';
+import Header from './components/Header/Header';
+import MainContent from './components/Body/MainContent';
 import Footer from './components/Footer';
 
-const HomePage = () => {
+export default function HomePage(){
   return (
     <div className="min-h-screen w-full bg-white">
       <Header />
@@ -14,4 +14,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+

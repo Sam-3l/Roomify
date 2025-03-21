@@ -6,12 +6,13 @@ export default function Navbar({ isOpen, onLoginClick, onSignupClick }) {
     <nav
       className={
         isOpen
-          ? "w-[400px] p-4 bg-white border-l border-secondary h-screen justify-between absolute right-0 top-0 flex flex-col items-start"
-          : "hidden"
+          ? "max-w-[480px] w-screen p-4 bg-white border-l border-secondary h-[100dvh] justify-between absolute right-0 top-0 flex flex-col items-start"
+          : "max-w-[480px] w-screen p-4 bg-white border-l border-secondary h-[100dvh] justify-between absolute right-0 top-0 flex flex-col items-start close"
       }
     >
+      <p></p>
       {/* Navigation Links */}
-      <ul className="flex flex-col gap-6 text-primary text-xl px-6 mb-8">
+      <ul className="flex flex-col gap-8  text-primary text-xl px-8">
         <li>
           <a href="#" className="hover:text-secondary">
             Home

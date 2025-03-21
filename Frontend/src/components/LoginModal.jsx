@@ -25,13 +25,13 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md relative">
+    <div className="fixed px-6 bg-white inset-0 bg-opacity-50 flex justify-center items-center z-99">
+      <div className="border border-primary/30 rounded-lg p-8 w-full max-w-md relative">
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-600 text-2xl font-bold focus:outline-none"
+          className="absolute top-4 right-4 text-gray-600 text-2xl font-bold focus:outline-none cursor-pointer"
         >
-          &times;
+          <img src="../src/assets/close.svg" alt="close-modal" />
         </button>
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -43,7 +43,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-primary"
             />
           </div>
           <div className="mb-6">
@@ -53,12 +53,12 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:border-primary"
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200"
+            className="w-full py-3 font-bold bg-secondary cursor-pointer hover:bg-tertiary text-white rounded"
           >
             Login
           </button>

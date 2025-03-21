@@ -1,5 +1,5 @@
 // src/components/Hero.jsx
-export default function MainContent() {
+export default function Hero() {
   return (
     <main className="w-full px-6 md:px-12">
       <div className="h-[80vh] px-8 bg-cover bg-center bg-blend-darken text-white bg-black/60 rounded-md flex flex-col justify-center items-center text-center py-32 bg-[url('../src/assets/26085.jpg')]">

@@ -1,18 +1,18 @@
 // src/components/Header.jsx
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
-import LoginModal from "./LoginModal";
+import LoginModal from "../LoginModal";
 
 export default function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflowY = isMobileNavOpen ? "hidden" : "auto";
+    document.body.style.overflowY = (isMobileNavOpen + isLoginOpen) ? "hidden" : "auto";
     return () => {
       document.body.style.overflowY = "auto";
     };
-  }, [isMobileNavOpen]);
+  }, [isMobileNavOpen,isLoginOpen]);
 
   return (
     <header className="w-full">
@@ -27,17 +27,17 @@ export default function Header() {
           <a href="#" className="hover:text-secondary">Contact</a>
           <button
             onClick={() => setIsLoginOpen(true)}
-            className="border border-secondary px-6 py-2.5 rounded-md"
+            className="border border-secondary px-6 py-2.5 ml-8 rounded-md cursor-pointer"
           >
             Login
           </button>
-          <button className="bg-secondary text-white px-6 py-3 rounded-md">
+          <button className="bg-secondary hover:bg-tertiary text-white px-6 py-3 rounded-md cursor-pointer">
             Sign Up
           </button>
         </nav>
         {/* Mobile Nav Toggle */}
         <button
-          className="md:hidden"
+          className="md:hidden z-90"
           onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
         >
           <img
