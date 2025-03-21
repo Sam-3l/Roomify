@@ -1,3 +1,5 @@
+# Backend/authentication/views.py
+
 from django.conf import settings
 from django.shortcuts import redirect
 from django.core.signing import TimestampSigner, SignatureExpired, BadSignature
