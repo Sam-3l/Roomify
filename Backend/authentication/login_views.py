@@ -1,9 +1,11 @@
+# Backend/authentication/login_views.py
+
 from dj_rest_auth.views import LoginView
 from django.conf import settings
 from django.core.mail import send_mail
 from rest_framework.response import Response
 from rest_framework import status
-from .views import generate_verification_token  # Ensure this helper exists in your project
+from .views import generate_verification_token
 
 class CustomLoginView(LoginView):
     """
