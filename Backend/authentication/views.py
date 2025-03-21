@@ -3,9 +3,11 @@ from django.shortcuts import redirect
 from django.core.signing import TimestampSigner, SignatureExpired, BadSignature
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.utils.timezone import localdate
+from django.urls import reverse
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.core.mail import send_mail
 import logging
 
@@ -14,7 +16,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(csrf_exempt, name='dispatch')
 class EmailConfirmView(APIView):
     """
-    Exempt from CSRF and open to unauthenticated users for email confirmation.
+    Open to unauthenticated users for email confirmation.
     """
     permission_classes = [AllowAny]
 
@@ -45,6 +47,10 @@ class EmailConfirmView(APIView):
             logger.info(f"User {email} was already verified.")
         return redirect(f"{settings.FRONTEND_DOMAIN}verify-email/success")
 
+    def get(self, request, *args, **kwargs):
+        # Allow GET requests for email confirmation as well.
+        return self.post(request, *args, **kwargs)
+
 def password_reset_view(request, *args, **kwargs):
     uidb64 = kwargs.get("uidb64", "")
     key = kwargs.get("key", "")
@@ -56,31 +62,117 @@ def generate_verification_token(user):
     token = signer.sign(user.email)
     return token
 
-class DashboardView(APIView):
+class AdminDashboardView(APIView):
     """
-    Returns a role-specific dashboard view.
+    Comprehensive admin dashboard.
+    Provides:
+      - System statistics (total users, reservations, courses, lecture theatres)
+      - Lists of upcoming and recent reservations (with occurrence data)
+      - Dynamic management links using URL reversing
     """
-    from rest_framework.permissions import IsAuthenticated
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        from booking.models import LectureReservation, Course, LectureTheatre
+        from authentication.models import User
+
+        total_users = User.objects.count()
+        total_reservations = LectureReservation.objects.count()
+        total_courses = Course.objects.count()
+        total_theatres = LectureTheatre.objects.count()
+        upcoming = LectureReservation.objects.filter(date__gte=localdate()).order_by('date')
+        recent = LectureReservation.objects.order_by('-created_at')[:5]
+        
+        management_links = {
+            "manage_users": reverse("users-list"),
+            # Add additional links once those viewsets are registered.
+        }
+        
+        dashboard = {
+            "role": "admin",
+            "message": "Welcome, admin! Oversee and manage the entire system.",
+            "overview": {
+                "total_users": total_users,
+                "total_reservations": total_reservations,
+                "total_courses": total_courses,
+                "total_lecture_theatres": total_theatres,
+            },
+            "upcoming_reservations": [
+                {
+                    "course": res.course.name,
+                    "reserved_by": res.reserved_by.email,
+                    "date": res.date,
+                    "start_time": res.start_time,
+                    "end_time": res.end_time,
+                    "lecture_theatre": res.lecture_theatre.name,
+                    "occurrences": res.get_occurrences(),
+                }
+                for res in upcoming
+            ],
+            "recent_reservations": [
+                {
+                    "course": res.course.name,
+                    "reserved_by": res.reserved_by.email,
+                    "date": res.date,
+                    "start_time": res.start_time,
+                    "end_time": res.end_time,
+                    "lecture_theatre": res.lecture_theatre.name,
+                    "occurrences": res.get_occurrences(),
+                    "created_at": res.created_at,
+                }
+                for res in recent
+            ],
+            "management_links": management_links,
+        }
+        return Response(dashboard)
+
+class GenericDashboardView(APIView):
+    """
+    Generic dashboard for lecturers and students (including class reps).
+    - Students/Class Reps see upcoming reservations and attendance history.
+    - Lecturers see their reservations and a placeholder for tracking student attendance.
+    """
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = request.user
         dashboard = {"role": user.role}
+
         if user.role in ['student', 'class_rep']:
+            from booking.models import LectureReservation
+            upcoming = LectureReservation.objects.filter(reserved_by=user, date__gte=localdate()).order_by('date')
             dashboard.update({
-                "message": "Welcome, student! Here are your upcoming reservations and attendance history.",
-                "upcoming_reservations": [],
-                "attendance_history": [],
+                "message": "Welcome! Book lecture halls and check your attendance history.",
+                "upcoming_reservations": [
+                    {
+                        "course": res.course.name,
+                        "date": res.date,
+                        "start_time": res.start_time,
+                        "end_time": res.end_time,
+                        "lecture_theatre": res.lecture_theatre.name,
+                        "occurrences": res.get_occurrences(),
+                    }
+                    for res in upcoming
+                ],
+                "attendance_history": []  # Replace with actual attendance records when available.
             })
         elif user.role == 'lecturer':
+            from booking.models import LectureReservation
+            upcoming = LectureReservation.objects.filter(reserved_by=user, date__gte=localdate()).order_by('date')
             dashboard.update({
-                "message": "Welcome, lecturer! Manage your room reservations and track student attendance here.",
-                "reservations_to_manage": [],
-            })
-        elif user.role == 'admin':
-            dashboard.update({
-                "message": "Welcome, admin! Oversee the system and manage users.",
-                "system_overview": {},
+                "message": "Welcome! Manage your reservations and track student attendance.",
+                "reservations_to_manage": [
+                    {
+                        "course": res.course.name,
+                        "date": res.date,
+                        "start_time": res.start_time,
+                        "end_time": res.end_time,
+                        "lecture_theatre": res.lecture_theatre.name,
+                        "occurrences": res.get_occurrences(),
+                    }
+                    for res in upcoming
+                ],
+                "student_attendance": []  # Replace with actual data when available.
             })
         else:
             dashboard.update({
@@ -92,7 +184,6 @@ class ResendVerificationEmailView(APIView):
     """
     Allows authenticated users to request a new email verification link.
     """
-    from rest_framework.permissions import IsAuthenticated
     permission_classes = [IsAuthenticated]
 
     def post(self, request):

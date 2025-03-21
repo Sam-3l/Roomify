@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get(
@@ -44,7 +45,7 @@ MIDDLEWARE = [
     # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',  # Ensure CSRF middleware is active
+    'django.middleware.csrf.CsrfViewMiddleware',  # CSRF protection enabled
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -71,7 +72,7 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # Use PostgreSQL in production
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -124,7 +125,7 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
-# Updated allauth settings (remove deprecated ACCOUNT_AUTHENTICATION_METHOD)
+# Updated Allauth settings
 ACCOUNT_LOGIN_METHODS = ['email']
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -156,7 +157,6 @@ REST_AUTH = {
     'OLD_PASSWORD_FIELD_ENABLED': True,
 }
 
-# In production, secure cookies and SSL settings should be enabled.
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
