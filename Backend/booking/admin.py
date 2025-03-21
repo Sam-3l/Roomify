@@ -17,7 +17,7 @@ class LectureTheatreAdmin(admin.ModelAdmin):
 class LectureReservationAdmin(admin.ModelAdmin):
     list_display = ('course', 'lecture_theatre', 'date', 'start_time', 'end_time', 'reserved_by')
     list_filter = ('date', 'lecture_theatre', 'course')
-    search_fields = ('course__name', 'lecture_theatre__name', 'reserved_by__username')
+    search_fields = ('course__name', 'lecture_theatre__name', 'reserved_by__email')
     ordering = ('date', 'start_time')
 
     def save_model(self, request, obj, form, change):

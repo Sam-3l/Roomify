@@ -10,16 +10,12 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send payload with email and password.
-      // If your backend still expects "username" instead of "email", change the payload accordingly.
       const response = await api.post('/auth/login/', { email, password });
       localStorage.setItem('accessToken', response.data.access);
       if (onLoginSuccess) onLoginSuccess(response.data);
       onClose();
     } catch (err) {
       console.error("Login error response:", err.response?.data || err);
-      // Optionally, if you suspect the backend wants "username", try:
-      // const response = await api.post('/auth/login/', { username: email, password });
       setError('Login failed. Please check your credentials.');
     }
   };

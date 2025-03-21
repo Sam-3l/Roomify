@@ -1,3 +1,5 @@
+# Backend/booking/views.py
+
 import datetime
 import logging
 from rest_framework import viewsets, filters
@@ -64,7 +66,7 @@ class LectureReservationViewSet(viewsets.ModelViewSet):
                     "title": f"{reservation.course.name} in {reservation.lecture_theatre.name}",
                     "start": datetime.datetime.combine(occ_date, reservation.start_time).isoformat(),
                     "end": datetime.datetime.combine(occ_date, reservation.end_time).isoformat(),
-                    "reserved_by": reservation.reserved_by.username,
+                    "reserved_by": reservation.reserved_by.email,
                 }
                 events.append(event)
         return Response(events)
