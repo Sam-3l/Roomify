@@ -64,11 +64,14 @@ def generate_verification_token(user):
 
 class AdminDashboardView(APIView):
     """
-    Comprehensive admin dashboard.
+    Comprehensive admin dashboard displaying detailed system information.
     Provides:
-      - System statistics (total users, reservations, courses, lecture theatres)
-      - Lists of upcoming and recent reservations (with occurrence data)
-      - Dynamic management links using URL reversing
+      - Overall system statistics (total users, reservations, courses, theatres)
+      - A breakdown of reservations per course and total occurrences per course
+      - Detailed list of upcoming reservations (including recurrence and occurrences)
+      - Detailed recent user registrations
+      - Dynamic management links using URL reversing with a namespace
+      - Extra meta information such as the current system date.
     """
     permission_classes = [IsAuthenticated]
 
@@ -76,60 +79,78 @@ class AdminDashboardView(APIView):
         from booking.models import LectureReservation, Course, LectureTheatre
         from authentication.models import User
 
+        # Basic counts
         total_users = User.objects.count()
         total_reservations = LectureReservation.objects.count()
         total_courses = Course.objects.count()
         total_theatres = LectureTheatre.objects.count()
-        upcoming = LectureReservation.objects.filter(date__gte=localdate()).order_by('date')
-        recent = LectureReservation.objects.order_by('-created_at')[:5]
-        
+
+        # Breakdown: reservations per course and occurrences per course
+        reservations_by_course = {}
+        occurrences_by_course = {}
+        for course in Course.objects.all():
+            reservations = LectureReservation.objects.filter(course=course)
+            reservations_by_course[course.name] = reservations.count()
+            occurrences_by_course[course.name] = sum(len(res.get_occurrences()) for res in reservations)
+
+        # Detailed upcoming reservations
+        upcoming_reservations = LectureReservation.objects.filter(date__gte=localdate()).order_by('date')
+        detailed_reservations = []
+        for res in upcoming_reservations:
+            detailed_reservations.append({
+                "course": res.course.name,
+                "reserved_by": res.reserved_by.email,
+                "date": res.date,
+                "start_time": res.start_time,
+                "end_time": res.end_time,
+                "lecture_theatre": res.lecture_theatre.name,
+                "recurrence_rule": res.recurrence_rule,
+                "occurrences": res.get_occurrences(),
+                "created_at": res.created_at,
+            })
+
+        # Detailed recent users (last 10 registrations)
+        recent_users = User.objects.order_by('-id')[:10]
+        detailed_users = []
+        for u in recent_users:
+            detailed_users.append({
+                "email": u.email,
+                "first_name": u.first_name,
+                "last_name": u.last_name,
+                "role": u.role,
+                "is_verified": u.is_verified,
+            })
+
+        # Dynamic management links using namespacing
         management_links = {
-            "manage_users": reverse("users-list"),
-            # Add additional links once those viewsets are registered.
+            "manage_users": reverse("admin_api:users-list"),
+            # Additional links can be added once other viewsets are registered.
         }
-        
+
         dashboard = {
             "role": "admin",
-            "message": "Welcome, admin! Oversee and manage the entire system.",
+            "message": "Welcome, admin! Here are the detailed system metrics.",
             "overview": {
                 "total_users": total_users,
                 "total_reservations": total_reservations,
                 "total_courses": total_courses,
                 "total_lecture_theatres": total_theatres,
+                "reservations_by_course": reservations_by_course,
+                "occurrences_by_course": occurrences_by_course,
             },
-            "upcoming_reservations": [
-                {
-                    "course": res.course.name,
-                    "reserved_by": res.reserved_by.email,
-                    "date": res.date,
-                    "start_time": res.start_time,
-                    "end_time": res.end_time,
-                    "lecture_theatre": res.lecture_theatre.name,
-                    "occurrences": res.get_occurrences(),
-                }
-                for res in upcoming
-            ],
-            "recent_reservations": [
-                {
-                    "course": res.course.name,
-                    "reserved_by": res.reserved_by.email,
-                    "date": res.date,
-                    "start_time": res.start_time,
-                    "end_time": res.end_time,
-                    "lecture_theatre": res.lecture_theatre.name,
-                    "occurrences": res.get_occurrences(),
-                    "created_at": res.created_at,
-                }
-                for res in recent
-            ],
+            "detailed_reservations": detailed_reservations,
+            "detailed_users": detailed_users,
             "management_links": management_links,
+            "meta": {
+                "system_date": str(localdate()),
+            },
         }
         return Response(dashboard)
 
 class GenericDashboardView(APIView):
     """
     Generic dashboard for lecturers and students (including class reps).
-    - Students/Class Reps see upcoming reservations and attendance history.
+    - Students/Class Reps see upcoming reservations (and attendance history placeholder).
     - Lecturers see their reservations and a placeholder for tracking student attendance.
     """
     permission_classes = [IsAuthenticated]
@@ -154,7 +175,7 @@ class GenericDashboardView(APIView):
                     }
                     for res in upcoming
                 ],
-                "attendance_history": []  # Replace with actual attendance records when available.
+                "attendance_history": []  # Replace with actual attendance data when available.
             })
         elif user.role == 'lecturer':
             from booking.models import LectureReservation
