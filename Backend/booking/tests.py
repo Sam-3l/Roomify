@@ -1,4 +1,4 @@
-# booking/tests.py
+# Backend/booking/tests.py
 
 import datetime
 import pytz

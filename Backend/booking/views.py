@@ -1,5 +1,3 @@
-# Backend/booking/views.py
-
 import datetime
 import logging
 from rest_framework import viewsets, filters
@@ -9,24 +7,23 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Course, LectureTheatre, LectureReservation
 from .serializers import CourseSerializer, LectureTheatreSerializer, LectureReservationSerializer
-from .permissions import IsAdminOrFaculty, IsOwnerOrAdmin, CanCreateCourse, CanCreateTheatre
 
 logger = logging.getLogger(__name__)
 
 class CourseViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().order_by('name')
     serializer_class = CourseSerializer
-    permission_classes = [CanCreateCourse]
+    # Add permission_classes if needed.
 
 class LectureTheatreViewSet(viewsets.ModelViewSet):
-    queryset = LectureTheatre.objects.all()
+    queryset = LectureTheatre.objects.all().order_by('name')
     serializer_class = LectureTheatreSerializer
-    permission_classes = [CanCreateTheatre]
+    # Add permission_classes if needed.
 
 class LectureReservationViewSet(viewsets.ModelViewSet):
-    queryset = LectureReservation.objects.all()
+    queryset = LectureReservation.objects.all().order_by('date', 'start_time')
     serializer_class = LectureReservationSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsAdminOrFaculty, IsOwnerOrAdmin]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['lecture_theatre', 'date', 'course']
     ordering_fields = ['date', 'start_time']
@@ -53,7 +50,6 @@ class LectureReservationViewSet(viewsets.ModelViewSet):
                 occ_dates = [reservation.date]
 
             for occ_date in occ_dates:
-                # Apply date filters if provided.
                 if start_date_str:
                     start_date = datetime.date.fromisoformat(start_date_str)
                     if occ_date < start_date:
@@ -71,5 +67,4 @@ class LectureReservationViewSet(viewsets.ModelViewSet):
                     "reserved_by": reservation.reserved_by.username,
                 }
                 events.append(event)
-
         return Response(events)
