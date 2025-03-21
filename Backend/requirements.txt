@@ -19,4 +19,4 @@ sqlparse==0.5.3
 tzdata==2025.1
 uritemplate==4.1.1
 wheel==0.45.1
-whitenoise==6.9.0
+# whitenoise==6.9.0
