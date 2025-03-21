@@ -1,21 +1,15 @@
-# Backend/core/settings.py
-
 import os
 from pathlib import Path
 from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY: In production, set these in your environment variables.
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "django-insecure-%uo18^soi*@g%=iqd$4c^--i@c_vx9-8v3-2(w(s^p2py@0h%u"
 )
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,11 +41,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # Was this necessary?
     # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # Ensure CSRF middleware is active
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -76,15 +69,13 @@ TEMPLATES = [
     },
 ]
 
-# Database configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # PostgreSQL seems more appropriate
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-# REST Framework configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -97,7 +88,6 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
-# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
@@ -105,16 +95,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-# Custom user model
 AUTH_USER_MODEL = "authentication.User"
 
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Africa/Lagos'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (should api be serving static files?)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -127,11 +114,9 @@ SWAGGER_SETTINGS = {
     'LOGOUT_URL': None,
 }
 
-# Domains for multi-environment adaptability.
 FRONTEND_DOMAIN = os.environ.get("FRONTEND_DOMAIN", "http://localhost:5173/")
 BACKEND_DOMAIN = os.environ.get("BACKEND_DOMAIN", "http://localhost:3000")
 
-# Authentication backends for allauth and Django
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -139,25 +124,20 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
-# Application-specific settings
-APP_NAME = 'Roomify'
-
-# Allauth configuration for email-only authentication
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# Updated allauth settings (remove deprecated ACCOUNT_AUTHENTICATION_METHOD)
+ACCOUNT_LOGIN_METHODS = ['email']
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-# Email configuration
 EMAIL_BACKEND = os.environ.get(
     "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
-)  # Use SMTP in production!
+)
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[ROOMIFY]'
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "test@roomify.com")
 
-# Simple JWT configuration
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
@@ -167,7 +147,6 @@ SIMPLE_JWT = {
     'SIGNING_KEY': SECRET_KEY,
 }
 
-# dj-rest-auth configuration
 REST_AUTH = {
     'REGISTER_SERIALIZER': 'authentication.serializers.RegistrationSerializer',
     'USER_DETAILS_SERIALIZER': 'authentication.serializers.AppUserDetailsSerializer',
@@ -177,13 +156,14 @@ REST_AUTH = {
     'OLD_PASSWORD_FIELD_ENABLED': True,
 }
 
-# Security settings (update for production)
+# In production, secure cookies and SSL settings should be enabled.
 if not DEBUG:
-    # Ensure secure cookies in production:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
-    # Set a proper HSTS policy:
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
+# Add trusted origins for CSRF if frontend is on a different domain
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "http://localhost:5173").split(",")
