@@ -1,19 +1,24 @@
 # Pull Request Template
 
-## Description
-Provide a brief description of the changes made in this pull request.
+## Overview
+- **Description:**  
+  Provide a concise summary of the changes made in this pull request.
+- **Related Issue:**  
+  Link to any associated issue or ticket (if applicable).
 
-## Related Issue
-Link to the related issue, if applicable.
+## Motivation & Context
+Explain the reason behind this change and the problem it solves. Include any product or business context if relevant.
 
-## Motivation and Context
-Explain why this change is necessary and what problem it solves.
+## Detailed Description
+Describe how the change is implemented. Include technical details such as:
+- Key changes in the codebase
+- Service integrations or external dependency updates (if any)
+- Any refactoring or improvements
 
-## How Has This Been Tested?
-Describe the tests that you ran to verify your changes.
-
-## Screenshots (if appropriate)
-Include screenshots to help explain your changes, if applicable.
+## Testing
+Detail how you verified the changes. Include:
+- Description of the tests (manual, automated, or both)
+- Any edge cases covered
 
 ## Types of Changes
 - [ ] Bug fix
@@ -22,11 +27,11 @@ Include screenshots to help explain your changes, if applicable.
 - [ ] Documentation update
 
 ## Checklist
-- [ ] My code follows the code style of this project.
+- [ ] My code follows the project’s style guidelines.
 - [ ] I have performed a self-review of my code.
-- [ ] I have added tests that prove my fix is effective or that my feature works.
-- [ ] New and existing unit tests pass locally with my changes.
-- [ ] I have updated the documentation accordingly.
+- [ ] I have added tests to cover my changes.
+- [ ] All new and existing tests pass locally.
+- [ ] I have updated relevant documentation.
 
 ## Additional Notes
-Add any additional information or context here.
+Include any extra information, performance considerations, or design choices that might help the reviewer understand your changes.
