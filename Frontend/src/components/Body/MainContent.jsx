@@ -2,6 +2,8 @@ import Hero from "./Hero"
 export default function MainContent(){
 
     return(
-        <Hero/>
+        <main className="w-full">
+            <Hero/>
+        </main>
     )
 }

@@ -8,6 +8,7 @@ export default function Header() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   useEffect(() => {
+    // Disable scrolling when mobile nav or login modal is open
     document.body.style.overflowY = (isMobileNavOpen + isLoginOpen) ? "hidden" : "auto";
     return () => {
       document.body.style.overflowY = "auto";
@@ -17,8 +18,10 @@ export default function Header() {
   return (
     <header className="w-full">
       <div className="flex px-6 md:px-12 py-4 justify-between items-center">
+
         {/* Logo */}
         <div className="text-xl font-bold text-secondary">Roomify</div>
+
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           <a href="#" className="hover:text-secondary">Home</a>
@@ -27,26 +30,29 @@ export default function Header() {
           <a href="#" className="hover:text-secondary">Contact</a>
           <button
             onClick={() => setIsLoginOpen(true)}
-            className="border border-secondary px-6 py-2.5 ml-8 rounded-md cursor-pointer"
+            className="button2"
           >
             Login
           </button>
-          <button className="bg-secondary hover:bg-tertiary text-white px-6 py-3 rounded-md cursor-pointer">
+          <button className="button1">
             Sign Up
           </button>
         </nav>
+
         {/* Mobile Nav Toggle */}
         <button
           className="md:hidden z-90"
           onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
         >
-          <img
-            src={isMobileNavOpen ? "../src/assets/close.svg" : "../src/assets/menu.svg"}
-            alt="Menu"
-            className="h-12"
-          />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-8">
+            <path strokeLinecap="round" strokeLinejoin="round" d={isMobileNavOpen? "M6 18 18 6M6 6l12 12" : "M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"} />
+          </svg>
         </button>
       </div>
+
+
+
+
       {/* Mobile Navbar */}
       <Navbar
         isOpen={isMobileNavOpen}
@@ -59,6 +65,7 @@ export default function Header() {
           // Trigger sign-up modal or redirection as needed.
         }}
       />
+
       {/* Login Modal */}
       {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
     </header>

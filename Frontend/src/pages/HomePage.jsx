@@ -1,8 +1,8 @@
 // src/HomePage.jsx
 import React from 'react';
-import Header from './components/Header/Header';
-import MainContent from './components/Body/MainContent';
-import Footer from './components/Footer';
+import Header from '../components/Header/Header';
+import MainContent from '../components/Body/MainContent';
+import Footer from '../components/Footer';
 
 export default function HomePage(){
   return (

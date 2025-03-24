@@ -38,13 +38,13 @@ export default function Navbar({ isOpen, onLoginClick, onSignupClick }) {
       <div className="flex flex-col w-full gap-4 px-6">
         <button
           onClick={onLoginClick}
-          className="border border-secondary w-full py-2.5 rounded-md text-center text-secondary hover:bg-gray-100 transition duration-200"
+          className="button2 w-full"
         >
           Login
         </button>
         <button
           onClick={onSignupClick}
-          className="bg-secondary hover:bg-tertiary w-full py-3 rounded-md text-center text-white transition duration-200"
+          className="button1 w-full"
         >
           Sign Up
         </button>

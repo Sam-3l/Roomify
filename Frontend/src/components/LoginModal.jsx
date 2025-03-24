@@ -27,7 +27,10 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-600 text-2xl font-bold focus:outline-none cursor-pointer"
         >
-          <img src="../src/assets/close.svg" alt="close-modal" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="black" className="size-8">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/>
+          </svg>
+
         </button>
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}

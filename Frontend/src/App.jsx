@@ -1,12 +1,15 @@
 // src/App.jsx
-import HomePage from './HomePage';
+import HomePage from './pages/HomePage';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
     <>
-      <HomePage />
+      <Dashboard/>
     </>
   );
 }
+
+
 
 export default App;
