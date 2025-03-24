@@ -1,11 +1,14 @@
 import PseudoProfile from "./PseudoProfile"
+import PseudoTimetable from "./PseudoTimetable"
+import PseudoNotification from "./PseudoNotification"
+import PseudoAvailableHalls from "./PseudoAvailableHalls"
 export default function DefaultBoard() {
     return(
-        <div className="col-span-7 flex flex-col gap-4 rounded-xl">
+        <div className="col-span-1 md:col-span-10 lg:col-span-7 overflow-auto md:overflow-y-scroll  flex flex-col gap-4 rounded-xl">
             <PseudoProfile/>
-            {/* <PseudoTimetable/>
-            <PseudoNotifications/>
-            <PseudoAvailableHalls/> */}
+            <PseudoTimetable/>
+            <PseudoNotification/>
+            <PseudoAvailableHalls/>
         </div>
     )
 }
