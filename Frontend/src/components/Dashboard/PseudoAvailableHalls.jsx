@@ -1,145 +1,24 @@
+import HallCard from "../Body/HallCard";
+
 export default function PseudoAvailableHalls() {
   return (
     <section className="flex py-6 flex-col gap-4 w-full">
-      <div className="flex gap-4">
-        <h1 className="text-lg md:text-xl">Vacant Halls</h1>
+      <div className="flex gap-4 ">
+        <h1 className="text-lg md:text-xl text-secondary">Vacant Halls</h1>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {/* Hall */}
-        <div className="flex flex-col p-6 gap-4 bg-white rounded-md">
-          <div className="flex justify-between items-center">
-            <p className="text-lg">AUD II</p>
-            <button classname="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="textsm">200 Seaters</p>
-            <p className="textsm">Vacant</p>
-          </div>
-          <button className="button2">Book Hall</button>
-        </div>
+        <HallCard hall="AUD II" capacity="200" status="Vacant" />    
         {/* Hall */}
-        <div className="flex flex-col p-6 gap-4 bg-white rounded-md">
-          <div className="flex justify-between items-center">
-            <p className="text-lg">AUD II</p>
-            <button classname="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="textsm">200 Seaters</p>
-            <p className="textsm">Vacant</p>
-          </div>
-          <button className="button2">Book Hall</button>
-        </div>
+        <HallCard hall="1K SLT" capacity="1000" status="Vacant" />    
         {/* Hall */}
-        <div className="flex flex-col p-6 gap-4 bg-white rounded-md">
-          <div className="flex justify-between items-center">
-            <p className="text-lg">AUD II</p>
-            <button classname="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="textsm">200 Seaters</p>
-            <p className="textsm">Vacant</p>
-          </div>
-          <button className="button2">Book Hall</button>
-        </div>
+        <HallCard hall="BOO C" capacity="300" status="Vacant" />    
         {/* Hall */}
-        <div className="flex flex-col p-6 gap-4 bg-white rounded-md">
-          <div className="flex justify-between items-center">
-            <p className="text-lg">AUD II</p>
-            <button classname="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="textsm">200 Seaters</p>
-            <p className="textsm">Vacant</p>
-          </div>
-          <button className="button2">Book Hall</button>
-        </div>
+        <HallCard hall="FBLT" capacity="300" status="Vacant" />    
         {/* Hall */}
-        <div className="flex flex-col p-6 gap-4 bg-white rounded-md">
-          <div className="flex justify-between items-center">
-            <p className="text-lg">AUD II</p>
-            <button classname="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="textsm">200 Seaters</p>
-            <p className="textsm">Vacant</p>
-          </div>
-          <button className="button2">Book Hall</button>
-        </div>
+        <HallCard hall="LAW 209" capacity="400" status="Vacant" />    
+        {/* Hall */}
+        <HallCard hall="PHY 291" capacity="70" status="Vacant" />    
       </div>
     </section>
   );

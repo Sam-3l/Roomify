@@ -33,27 +33,27 @@ export default function PseudoProfile() {
         <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-4">
           <span className="text-base col-span-1 flex flex-col items-baseline">
             <p className="text-sm opacity-60">Name</p>
-            <p>Oloyede Elijah </p>
+            <p className="text-secondary">Oloyede Elijah </p>
           </span>
           <span className="text-base col-span-1 flex flex-col items-baseline">
             <p className="text-sm opacity-60">Reg No:</p>
-            <p>EEG/2022/###</p>
+            <p className="text-secondary">EEG/2022/###</p>
           </span>
           <span className="text-base col-span-1 flex flex-col items-baseline">
             <p className="text-sm opacity-60">Level</p>
-            <p>200</p>
+            <p className="text-secondary">200</p>
           </span>
           <span className="text-base col-span-1 flex flex-col items-baseline">
             <p className="text-sm opacity-60">Programme</p>
-            <p>B.Sc </p>
+            <p className="text-secondary">B.Sc </p>
           </span>
           <span className="text-base col-span-1 flex flex-col items-baseline">
             <p className="text-sm opacity-60">Faculty</p>
-            <p>Technology</p>
+            <p className="text-secondary">Technology</p>
           </span>
           <span className="text-base col-span-1 flex flex-col items-baseline">
             <p className="text-sm opacity-60">Degree</p>
-            <abbr title="Electronic and Electrical Engineering">EEE</abbr>
+            <abbr className="text-secondary" title="Electronic and Electrical Engineering">EEE</abbr>
           </span>
         </div>
       </div>
