@@ -4,7 +4,7 @@
   --color-primary: #333333;
   --color-secondary: #000000;
   --color-tertiary: #052659;
-  --color-bg: #e5e5e5;
+  --color-bg: #f5f5f5;
   --font-sans: monospace;
   --text-base: 1.2rem;
   --text-sm: 0.875rem;
@@ -22,7 +22,7 @@
   transform: translateX(100%);
 }
 .button1 {
-  @apply cursor-pointer text-center bg-secondary hover:bg-tertiary text-white font-bold py-3 px-6 rounded transition duration-300;
+  @apply cursor-pointer text-center bg-secondary  hover:bg-tertiary text-white font-bold py-3 px-6 rounded transition duration-300;
 }
 .button2 {
   @apply border cursor-pointer text-center border-secondary text-secondary py-2.5 px-6 rounded hover:bg-gray-100 font-bold transition duration-300;
@@ -35,7 +35,7 @@
 }
 ::-webkit-scrollbar-track {
   width: 7px;
-  background-color: #e5e5e5;
+  background-color: #ffffff;
   cursor: grab;
 }
 ::-webkit-scrollbar-thumb {

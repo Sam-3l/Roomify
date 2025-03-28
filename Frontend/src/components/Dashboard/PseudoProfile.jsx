@@ -1,6 +1,6 @@
 export default function PseudoProfile() {
   return (
-    <section className="relative w-full bg- p-6 gap-8 rounded-xl flex flex-col md:flex-row items-center">
+    <section className="relative w-full bg-white p-6 gap-8 rounded-xl flex flex-col md:flex-row items-center">
       {/* Profile Pic */}
       <div className="relative md:w-60 aspect-square">
         <img
@@ -31,28 +31,28 @@ export default function PseudoProfile() {
           Welcome back, Elijah!
         </h1>
         <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-4">
-          <span className="col-span-1 flex items-baseline gap-1">
-            <p className="italic text-sm opacity-60">Name: </p>
+          <span className="text-base col-span-1 flex flex-col items-baseline">
+            <p className="text-sm opacity-60">Name</p>
             <p>Oloyede Elijah </p>
           </span>
-          <span className="col-span-1 flex items-baseline gap-1">
-            <p className="italic text-sm opacity-60">Reg No:</p>
+          <span className="text-base col-span-1 flex flex-col items-baseline">
+            <p className="text-sm opacity-60">Reg No:</p>
             <p>EEG/2022/###</p>
           </span>
-          <span className="col-span-1 flex items-baseline gap-1">
-            <p className="italic text-sm opacity-60">Level: </p>
+          <span className="text-base col-span-1 flex flex-col items-baseline">
+            <p className="text-sm opacity-60">Level</p>
             <p>200</p>
           </span>
-          <span className="col-span-1 flex items-baseline gap-1">
-            <p className="italic text-sm opacity-60">Programme: </p>
+          <span className="text-base col-span-1 flex flex-col items-baseline">
+            <p className="text-sm opacity-60">Programme</p>
             <p>B.Sc </p>
           </span>
-          <span className="col-span-1 flex items-baseline gap-1">
-            <p className="italic text-sm opacity-60">Faculty: </p>
+          <span className="text-base col-span-1 flex flex-col items-baseline">
+            <p className="text-sm opacity-60">Faculty</p>
             <p>Technology</p>
           </span>
-          <span className="col-span-1 flex items-baseline gap-1">
-            <p className="italic text-sm opacity-60">Degree: </p>
+          <span className="text-base col-span-1 flex flex-col items-baseline">
+            <p className="text-sm opacity-60">Degree</p>
             <abbr title="Electronic and Electrical Engineering">EEE</abbr>
           </span>
         </div>
