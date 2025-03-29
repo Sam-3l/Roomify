@@ -1,7 +1,7 @@
 import HallCard from "../Body/HallCard";
 export default function AvailableHalls() {
   return (
-    <aside className="col-span-10 overflow-y-auto pr-4">
+    <aside className="col-span-1 md:col-span-10 overflow-y-auto pr-4">
         <form action="" className="flex justify-between items-center mb-8">
             <input type="text" className="bg-white p-3 rounded-md outline-none" placeholder="Search..." />
             <div className="flex items-center gap-4">

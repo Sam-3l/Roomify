@@ -3,7 +3,6 @@ import DefaultBoard from "./DefaultBoard";
 import BookingForm from "./BookingForm";
 import Timetable from "./Timetable";
 import Notifications from "./Notifications";
-import ExamTimetable from "./ExamTimetable";
 import Profile from "./Profile";
 import { useState } from "react";
 import AvailableHalls from "./AvailableHalls";
@@ -25,6 +24,8 @@ export default function UserDashboard() {
       ) : selected === "profile" ? (
         <Profile />
       ) : null}
+
+      {selected === "home" ? <BookingForm /> : null}
     </main>
   );
 }

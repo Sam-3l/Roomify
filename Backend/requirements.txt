@@ -5,6 +5,7 @@ django-allauth==65.5.0
 django-cors-headers==4.7.0
 django-recurrence==1.11.1
 djangorestframework==3.15.2
+django-filter
 djangorestframework_simplejwt==5.5.0
 drf-yasg==1.21.10
 inflection==0.5.1

@@ -1,9 +1,9 @@
 export default function HallCard(props) {
   return (
-    <div className="flex flex-col md:items-center md:flex-row p-6 md:py-3 gap-4 bg-white md:justify-between rounded-md">
-      <div className="flex justify-between items-center">
+    <div className="flex flex-col md:items-center md:grid md:grid-cols-4 p-6 md:py-3 gap-4 bg-white md:justify-between rounded-md">
+      <div className="flex justify-between md:justify-normal items-center">
         <p className="text-lg text-secondary"> {props.hall} </p>
-        <button className="flex items-center  md:hidden justify-center w-8 h-8 rounded-full cursor-pointer ">
+        <button className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -21,15 +21,46 @@ export default function HallCard(props) {
         </button>
       </div>
       <div className="flex md:overflow-y md:hidden items-center justify-between">
-        <p className="">{props.capacity} Seater</p>
+        <p className="flex gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="#333333"
+            className="size-6"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z"
+              clipRule="evenodd"
+            />
+            <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
+          </svg>
+          {props.capacity}
+
+        </p>
         <p className="">{props.status}</p>
       </div>
-      <p className="hidden md:inline-block">{props.capacity} Seater</p>
+      <p className="hidden md:flex gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="size-6"
+        >
+          <path
+            fillRule="evenodd"
+            d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z"
+            clipRule="evenodd"
+          />
+          <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
+        </svg>
+        {props.capacity}
+
+      </p>
       <p className="hidden md:inline-block">{props.status}</p>
-      <div className="space-x-4">
-        <button className="button2 hidden md:inline-block h-fit px-6 py-3">View Hall</button>
-        <button className="button1 w-full md:w-fit h-fit px-6 py-3">Book Hall</button>
-      </div>
+      <button className="button1 w-full md:w-fit h-fit px-6 py-3 place-self-end">
+        Book Hall
+      </button>
     </div>
   );
 }
