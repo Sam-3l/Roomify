@@ -2,7 +2,7 @@ import NotificationCard from "../Body/NotificationCard";
 export default function Notifications() {
   return (
     <aside className="col-span-1 overflow-y-auto pr-4 flex md:col-span-10 py-6 flex-col gap-4 w-full">
-      <h1 className="text-lg md:text-xl text-secondary">Notifications</h1>
+      <h1 className="text-lg md:text-xl">Notifications</h1>
       <div className="grid grid-cols-1 gap-4 w-full">
         {/* Notification */}
         <NotificationCard

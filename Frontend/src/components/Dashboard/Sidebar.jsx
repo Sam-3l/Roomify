@@ -1,6 +1,6 @@
 export default function Sidebar({ selected, setSelected }) {
   return (
-    <aside className="col-span-1 bg-secondary py-4 px-8 md:px-4 md:py-8 rounded-xl h-fit w-full md:h-full flex flex-row md:flex-col justify-between items-center">
+    <aside className="col-span-1 bg-secondary py-4 px-8 md:px-4 md:py-8 rounded-xl h-fit w-full md:h-full max-h-[700px] flex flex-row md:flex-col justify-between items-center">
       {/* Logo */}
       <div className="">
         <h1 className="text-white text-2xl">R</h1>
@@ -187,7 +187,7 @@ export default function Sidebar({ selected, setSelected }) {
               type="radio"
               name="dashNav"
               id="profile"
-              onChange={() => setSelected("profile")}
+              // onChange={() => setSelected("profile")}
               className="hidden"
             />
             {selected === "profile" ? (

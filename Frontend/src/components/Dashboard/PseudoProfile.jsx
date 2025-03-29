@@ -1,6 +1,6 @@
 export default function PseudoProfile() {
   return (
-    <section className="relative w-full bg-white p-6 gap-8 rounded-xl flex flex-col md:flex-row items-center">
+    <section className="relative w-full bg-white p-6 py-8 gap-8 rounded-xl flex flex-col lg:flex-row items-center">
       {/* Profile Pic */}
       <div className="relative md:w-60 aspect-square">
         <img

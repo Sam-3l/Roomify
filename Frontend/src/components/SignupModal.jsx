@@ -1,8 +1,8 @@
-// src/components/LoginModal.jsx
+// src/components/SignupModal.jsx
 import React, { useState } from 'react';
 import api from '../api';
 
-export default function LoginModal({ onClose, onLoginSuccess }) {
+export default function SignupModal({ onClose, onSignupSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -10,13 +10,13 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/auth/login/', { email, password });
+      const response = await api.post('/auth/Signup/', { email, password });
       localStorage.setItem('accessToken', response.data.access);
-      if (onLoginSuccess) onLoginSuccess(response.data);
+      if (onSignupSuccess) onSignupSuccess(response.data);
       onClose();
     } catch (err) {
-      console.error("Login error response:", err.response?.data || err);
-      setError('Login failed. Please check your credentials.');
+      console.error("Signup error response:", err.response?.data || err);
+      setError('Signup failed. Please check your credentials.');
     }
   };
 
@@ -42,7 +42,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
             />
           </svg>
         </button>
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -56,12 +56,7 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
             />
           </div>
           <div className="mb-6">
-            <div className="flex items-center justify-between">
               <label className="block text-gray-700 mb-2">Password:</label>
-              <a href="#" className="text-tertiary text-sm">
-                Forgot Password?
-              </a>
-            </div>
             <input
               type="password"
               value={password}
@@ -74,13 +69,13 @@ export default function LoginModal({ onClose, onLoginSuccess }) {
             type="submit"
             className="w-full py-3 font-bold bg-secondary cursor-pointer hover:bg-tertiary text-white rounded"
           >
-            Login
+            Sign Up
           </button>
         </form>
         <div className="mt-4 flex gap-1 items-center justify-center">
-          <p className="text-sm">Don't have an account?</p>
+          <p className="text-sm">Already have an account?</p>
           <a href="#" className="text-sm text-tertiary">
-            Sign Up
+            Login
           </a>
         </div>
       </div>

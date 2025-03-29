@@ -5,7 +5,7 @@ export default function PseudoNotifications() {
     <section className="flex py-6 flex-col gap-4 w-full">
       <div className="flex gap-4">
         <span className="w-1 rounded-full bg-red-500"></span>
-        <h1 className="text-lg md:text-xl text-secondary">
+        <h1 className="text-lg md:text-xl ">
           Unread Notifications
         </h1>
       </div>
