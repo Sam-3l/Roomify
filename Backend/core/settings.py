@@ -1,25 +1,18 @@
+# Backend/core/settings.py
+
+import os
 from pathlib import Path
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%uo18^soi*@g%=iqd$4c^--i@c_vx9-8v3-2(w(s^p2py@0h%u'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = [
-    # "b52a351e931396.lhr.life"
-]
-
-
-# Application definition
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-%uo18^soi*@g%=iqd$4c^--i@c_vx9-8v3-2(w(s^p2py@0h%u"
+)
+DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -30,34 +23,35 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    # ..3rd party
-    'drf_yasg',
+    # Third-party apps
     'recurrence',
     'dj_rest_auth',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_filters',
 
-    # drf
+    # DRF and Swagger
+    'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
 
-    # apps
+    # Local apps
     'booking',
-    'django_filters',
+    'authentication',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # CSRF protection enabled
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -78,22 +72,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # Use PostgreSQL in production
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT auth
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -103,57 +91,34 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
 AUTH_USER_MODEL = "authentication.User"
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+TIME_ZONE = 'Africa/Lagos'
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Swagger settings
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
     'LOGIN_URL': None,
     'LOGOUT_URL': None,
 }
 
-# Doing this for multi-environment adaptability whenever the urls are needed
-FRONTEND_DOMAIN = "http://localhost:3000/" # For now -- would pick from env when that is set up.
-BACKEND_DOMAIN = ""
+FRONTEND_DOMAIN = os.environ.get("FRONTEND_DOMAIN", "http://localhost:5173/")
+BACKEND_DOMAIN = os.environ.get("BACKEND_DOMAIN", "http://localhost:3000")
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -162,20 +127,19 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
-APP_NAME = 'Roomify'
-
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# Updated Allauth settings
+ACCOUNT_LOGIN_METHODS = ['email']
 ACCOUNT_USERNAME_REQUIRED = False
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # yh?
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-# Email message configs
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For now. STMP in production
+EMAIL_BACKEND = os.environ.get(
+    "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
+)
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[ROOMIFY]'
-DEFAULT_FROM_EMAIL = 'test@roomify.com'  # proto
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "test@roomify.com")
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
@@ -194,3 +158,14 @@ REST_AUTH = {
     'JWT_AUTH_HTTPONLY': False,
     'OLD_PASSWORD_FIELD_ENABLED': True,
 }
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+# Add trusted origins for CSRF if frontend is on a different domain
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "http://localhost:5173").split(",")
