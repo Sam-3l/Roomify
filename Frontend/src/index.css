@@ -17,10 +17,10 @@
 }
 * {
   box-sizing: border-box;
-  color: var(--color-primary);
 }
-.text-secondary{
-  color: var(--color-secondary);
+body{
+  color: var(--color-primary);
+  accent-color:var(--color-secondary);
 }
 .close {
   transform: translateX(100%);
