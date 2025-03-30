@@ -12,7 +12,7 @@ export default function BookingForm() {
             name="lecture_theatre"
             id="lecture_theatre"
             defaultValue=""
-            className="w-full p-2 rounded-md border border-primary outline-none"
+            className="w-full p-2 rounded-md border border-primary/30 outline-none"
           >
             <option value="" disabled>
               -- Hall --
@@ -101,7 +101,7 @@ export default function BookingForm() {
             id="date"
             name="date"
             defaultValue={new Date().toISOString().split("T")[0]}
-            className="w-full p-2 rounded-md border border-primary outline-none"
+            className="w-full p-2 rounded-md border border-primary/30 outline-none"
           />
         </label>
         <div className="flex gap-4">
@@ -112,7 +112,7 @@ export default function BookingForm() {
               id="start_time"
               name="start_time"
               step="3600"
-              className="w-full p-2 rounded-md border border-primary outline-none"
+              className="w-full p-2 rounded-md border border-primary/30 outline-none"
             />
           </label>
           <label htmlFor="date" className="text-sm w-1/2">
@@ -122,7 +122,7 @@ export default function BookingForm() {
               id="end_time"
               step="3600"
               name="end_time"
-              className="w-full p-2 rounded-md border border-primary outline-none"
+              className="w-full p-2 rounded-md border border-primary/30 outline-none"
             />
           </label>
         </div>
@@ -132,7 +132,7 @@ export default function BookingForm() {
             name="course"
             id="course"
             defaultValue=""
-            className="w-full p-2 rounded-md border border-primary outline-none"
+            className="w-full p-2 rounded-md border border-primary/30 outline-none"
           >
             <option value="" disabled>
               -- Course --
@@ -169,7 +169,7 @@ export default function BookingForm() {
             name="reoccurence"
             id="reoccurence"
             defaultValue="once"
-            className="w-full p-2 rounded-md border border-primary outline-none"
+            className="w-full p-2 rounded-md border border-primary/30 outline-none"
           >
             <option value="once" className="p-4">
               Once
