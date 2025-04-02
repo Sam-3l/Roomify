@@ -29,7 +29,7 @@ body{
   @apply cursor-pointer text-center bg-secondary  hover:bg-tertiary text-white font-bold py-3 px-6 rounded transition duration-300;
 }
 .button2 {
-  @apply border cursor-pointer text-center border-secondary text-secondary py-2.5 px-6 rounded hover:bg-gray-100 font-bold transition duration-300;
+  @apply border cursor-pointer text-center border-primary/30 text-secondary py-2.5 px-6 rounded hover:bg-gray-100 font-bold transition duration-300;
 }
 .button3 {
   @apply border cursor-pointer text-center text-white border-white py-2.5 px-6 rounded font-bold transition duration-300;

@@ -2,12 +2,7 @@ export default function PseudoProfile() {
   return (
     <section className="relative w-full bg-white p-6 py-8 gap-8 rounded-xl flex flex-col lg:flex-row items-center">
       {/* Profile Pic */}
-      <div className="relative md:w-60 aspect-square">
-        <img
-          src="../src/assets/avatar.png"
-          alt="profile-pic"
-          className="h-48 rounded-full w-48"
-        />
+      <div className="relative w-60 rounded-full aspect-square bg-[url(../src/assets/avatar.png)] bg-contain ">
         {/* Edit Profile */}
         <button className="cursor-pointer bg-bg w-12 rounded-full bottom-0 aspect-square flex items-center justify-center absolute right-0">
           <svg

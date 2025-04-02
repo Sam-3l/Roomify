@@ -4,9 +4,9 @@ export default function PseudoAvailableHalls() {
   return (
     <section className="flex py-6 flex-col gap-4 w-full">
       <div className="flex gap-4 ">
-        <h1 className="text-lg md:text-xl ">Vacant Halls</h1>
+        <h1 className="text-lg">Vacant Halls</h1>
       </div>
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] md:grid-cols-1 gap-4">
         {/* Hall */}
         <PseudoHallCard hall="AUD II" capacity="200" status="Vacant" />
         {/* Hall */}

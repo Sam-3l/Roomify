@@ -1,11 +1,14 @@
+import ReservationCard from "../Body/ReservationCard";
 export default function BookingForm() {
   return (
-    <aside className="col-span-1 md:col-span-3 md:block  rounded-xl">
+    <aside className="col-span-1 md:col-span-4 lg:col-span-3 flex flex-col gap-4 rounded-xl overflow-y-auto">
+      <section className="flex flex-col gap-2">
       <h1 className="text-lg lg:block">Booking</h1>
       <form
         action=""
         className="bg-white rounded-md p-4 flex flex-col gap-4"
       >
+        {/* Lecture Theatre */}
         <label htmlFor="lecture_theatre" className="text-sm">
           Lecture Theatre
           <select
@@ -189,6 +192,33 @@ export default function BookingForm() {
           Book Hall
         </button>
       </form>
+      </section>
+      <section className="flex flex-col gap-2">
+      <h1 className="text-lg lg:block">Reservations</h1>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+        Lecture
+        <ReservationCard
+          session="11:00-12:00"
+          course="MTH 202"
+          hall="ODLT II"
+        />
+        {/* Lecture */}
+        <ReservationCard
+          session="11:00-12:00"
+          course="MTH 202"
+          hall="ODLT II"
+        />
+        {/* Lecture */}
+        <ReservationCard
+          session="11:00-12:00"
+          course="MTH 202"
+          hall="ODLT II"
+        />
+
+      </div>
+
+      </section>
+
     </aside>
   );
 }
