@@ -51,11 +51,11 @@ export default function AvailableHalls() {
         </div>
       </form>
       <section className="grid grid-cols-1 gap-4">
-        <HallCard hall="1K SLT" capacity="1000" status="Vacant" />
-        <HallCard hall="1K SLT" capacity="1000" status="Vacant" />
-        <HallCard hall="1K SLT" capacity="1000" status="Vacant" />
-        <HallCard hall="1K SLT" capacity="1000" status="Vacant" />
-        <HallCard hall="1K SLT" capacity="1000" status="Vacant" />
+        <HallCard hall="1K SLT" capacity="1000" status="vacant" />
+        <HallCard hall="1K SLT" capacity="1000" status="in use" />
+        <HallCard hall="1K SLT" capacity="1000" status="pending" />
+        <HallCard hall="1K SLT" capacity="1000" status="in use" />
+        <HallCard hall="1K SLT" capacity="1000" status="vacant" />
       </section>
     </aside>
   );

@@ -1,4 +1,17 @@
 export default function HallCard(props) {
+  let classname;
+
+  if (props.status === "vacant") {
+    classname =
+      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-green-100 text-green-950";
+  } else if (props.status === "pending") {
+    classname =
+      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-yellow-100 text-yellow-950";
+  } else if (props.status === "in use") {
+    classname =
+      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-red-100 text-red-950";
+  }
+
   return (
     <div className="flex flex-col md:items-center md:grid md:grid-cols-4 p-6 md:py-3 gap-4 bg-white md:justify-between rounded-md">
       <div className="flex justify-between md:justify-normal items-center">
@@ -36,9 +49,8 @@ export default function HallCard(props) {
             <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
           </svg>
           {props.capacity}
-
         </p>
-        <p className="">{props.status}</p>
+        <p className={classname}>{props.status}</p>
       </div>
       <p className="hidden md:flex gap-2">
         <svg
@@ -55,9 +67,8 @@ export default function HallCard(props) {
           <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
         </svg>
         {props.capacity}
-
       </p>
-      <p className="hidden md:inline-block">{props.status}</p>
+      <p className={`hidden md:inline-block ${classname}`}>{props.status}</p>
       <button className="button1 w-full md:w-fit h-fit px-6 py-3 place-self-end">
         Book Hall
       </button>

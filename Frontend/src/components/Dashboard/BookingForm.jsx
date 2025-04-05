@@ -196,7 +196,6 @@ export default function BookingForm() {
       <section className="flex flex-col gap-2">
       <h1 className="text-lg lg:block">Reservations</h1>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-        Lecture
         <ReservationCard
           session="11:00-12:00"
           course="MTH 202"

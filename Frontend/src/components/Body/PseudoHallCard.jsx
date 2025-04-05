@@ -1,4 +1,19 @@
 export default function PseudoHallCard(props) {
+  
+  let classname;
+
+  if (props.status === "vacant") {
+    classname =
+      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-green-100 text-green-950";
+  } else if (props.status === "pending") {
+    classname =
+      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-yellow-100 text-yellow-950";
+  } else if (props.status === "in use") {
+    classname =
+      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-red-100 text-red-950";
+  }
+
+
   return (
     <div className="flex flex-col lg:items-center lg:grid lg:grid-cols-4 p-6 lg:py-3 gap-4 bg-white lg:justify-between rounded-md">
       <div className="flex justify-between lg:justify-normal items-center">
@@ -38,7 +53,7 @@ export default function PseudoHallCard(props) {
           {props.capacity}
 
         </p>
-        <p className="">{props.status}</p>
+        <p className={classname}>{props.status}</p>
       </div>
       <p className="hidden lg:flex gap-2">
         <svg
@@ -57,7 +72,7 @@ export default function PseudoHallCard(props) {
         {props.capacity}
 
       </p>
-      <p className="hidden lg:inline-block">{props.status}</p>
+      <p className={`hidden lg:inline-block ${classname}`}>{props.status}</p>
       <button className="button1 w-full lg:w-fit h-fit px-6 py-3 place-self-end">
         Book Hall
       </button>
