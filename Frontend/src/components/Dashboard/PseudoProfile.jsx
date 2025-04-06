@@ -1,6 +1,6 @@
 export default function PseudoProfile() {
   return (
-    <section className="relative w-full bg-white p-6 py-8 gap-8 rounded-xl flex flex-col lg:flex-row items-center">
+    <section className="relative w-full custom-shadow bg-white p-6 py-8 gap-8 rounded-xl flex flex-col lg:flex-row items-center">
       {/* Profile Pic */}
       <div className="relative w-60 rounded-full aspect-square shadow-xl bg-[url(../src/assets/avatar.png)] bg-contain ">
         {/* Edit Profile */}

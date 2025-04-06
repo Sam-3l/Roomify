@@ -34,6 +34,9 @@ body{
 .button3 {
   @apply border cursor-pointer text-center text-white border-white py-2.5 px-6 rounded font-bold transition duration-300;
 }
+.custom-shadow{
+  @apply shadow-lg shadow-secondary/5
+}
 ::-webkit-scrollbar {
   width: 7px;
 }

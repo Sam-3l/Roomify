@@ -4,18 +4,18 @@ export default function PseudoHallCard(props) {
 
   if (props.status === "vacant") {
     classname =
-      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-green-100 text-green-950";
+      "p-1 px-4 w-max font-semibold rounded-full capitalize bg-green-100 text-green-950";
   } else if (props.status === "pending") {
     classname =
-      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-yellow-100 text-yellow-950";
+      "p-1 px-4 w-max font-semibold rounded-full capitalize bg-neutral-200 text-neutral-950";
   } else if (props.status === "in use") {
     classname =
-      "p-1 px-4 w-fit font-bold rounded-full capitalize bg-red-100 text-red-950";
+      "p-1 px-4 w-max font-semibold rounded-full capitalize bg-red-100 text-red-950";
   }
 
 
   return (
-    <div className="flex flex-col lg:items-center lg:grid lg:grid-cols-4 p-6 lg:py-3 gap-4 bg-white lg:justify-between rounded-md">
+    <div className="flex custom-shadow flex-col lg:items-center lg:grid lg:grid-cols-4 p-6 lg:py-3 gap-4 bg-white lg:justify-between rounded-md">
       <div className="flex justify-between lg:justify-normal items-center">
         <p className="text-lg text-secondary"> {props.hall} </p>
         <button className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer ">
@@ -30,7 +30,7 @@ export default function PseudoHallCard(props) {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+              d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"  
             />
           </svg>
         </button>

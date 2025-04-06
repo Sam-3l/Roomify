@@ -1,12 +1,12 @@
 import ReservationCard from "../Body/ReservationCard";
 export default function BookingForm() {
   return (
-    <aside className="col-span-1 md:col-span-4 lg:col-span-3 flex flex-col gap-4 rounded-xl overflow-y-auto">
+    <aside className="col-span-1 md:col-span-4 md:pr-4 lg:col-span-3 flex flex-col gap-4 rounded-xl overflow-y-auto">
       <section className="flex flex-col gap-2">
       <h1 className="text-lg lg:block">Booking</h1>
       <form
         action=""
-        className="bg-white rounded-md p-4 flex flex-col gap-4"
+        className="bg-white custom-shadow rounded-md p-6 flex flex-col gap-4"
       >
         {/* Lecture Theatre */}
         <label htmlFor="lecture_theatre" className="text-sm">
