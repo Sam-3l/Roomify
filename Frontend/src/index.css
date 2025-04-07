@@ -29,10 +29,13 @@ body{
   @apply cursor-pointer text-center bg-secondary  hover:bg-tertiary text-white font-bold py-3 px-6 rounded transition duration-300;
 }
 .button2 {
-  @apply border cursor-pointer text-center border-secondary text-secondary py-2.5 px-6 rounded hover:bg-gray-100 font-bold transition duration-300;
+  @apply border cursor-pointer text-center border-primary/30 text-secondary py-2.5 px-6 rounded hover:bg-gray-100 font-bold transition duration-300;
 }
 .button3 {
   @apply border cursor-pointer text-center text-white border-white py-2.5 px-6 rounded font-bold transition duration-300;
+}
+.custom-shadow{
+  @apply shadow-lg shadow-secondary/5
 }
 ::-webkit-scrollbar {
   width: 7px;
@@ -43,7 +46,7 @@ body{
   cursor: grab;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #333333;
+  background-color: hsl(0, 0%, 20%);
 }
 ::-webkit-scrollbar-thumb:active {
   background-color: #052659;

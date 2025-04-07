@@ -1,23 +1,223 @@
+import ReservationCard from "../Body/ReservationCard";
 export default function BookingForm() {
   return (
-    <div className="lg:col-span-3 fixed lg:right-0 lg:bottom-0 right-6 bottom-6 lg:block lg:relative lg:bg-neutral-200 p-6 rounded-xl">
-      <h1 className="text-white text-3xl hidden lg:inline-block">Booking</h1>
-      <button className="bg-secondary flex items-center justify-center p-4 rounded-full lg:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="white"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+    <aside className="col-span-1 md:col-span-4 md:pr-4 lg:col-span-3 flex flex-col gap-4 rounded-xl overflow-y-auto">
+      <section className="flex flex-col gap-2">
+      <h1 className="text-lg lg:block">Booking</h1>
+      <form
+        action=""
+        className="bg-white custom-shadow rounded-md p-6 flex flex-col gap-4"
+      >
+        {/* Lecture Theatre */}
+        <label htmlFor="lecture_theatre" className="text-sm">
+          Lecture Theatre
+          <select
+            name="lecture_theatre"
+            id="lecture_theatre"
+            defaultValue=""
+            className="w-full p-2 rounded-md border border-primary/30 outline-none"
+          >
+            <option value="" disabled>
+              -- Hall --
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="FBLT" className="p-4">
+              FBLT
+            </option>
+            <option value="AUD II" className="p-4">
+              AUD II
+            </option>
+            <option value="AUD I" className="p-4">
+              AUD I
+            </option>
+            <option value="ODLT I" className="p-4">
+              ODLT I
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+          </select>
+        </label>
+        <label htmlFor="date" className="text-sm">
+          Date
+          <input
+            type="date"
+            id="date"
+            name="date"
+            defaultValue={new Date().toISOString().split("T")[0]}
+            className="w-full p-2 rounded-md border border-primary/30 outline-none"
           />
-        </svg>
-      </button>
-    </div>
+        </label>
+        <div className="flex gap-4">
+          <label htmlFor="date" className="text-sm w-1/2">
+            Start Time
+            <input
+              type="time"
+              id="start_time"
+              name="start_time"
+              step="3600"
+              className="w-full p-2 rounded-md border border-primary/30 outline-none"
+            />
+          </label>
+          <label htmlFor="date" className="text-sm w-1/2">
+            End Time
+            <input
+              type="time"
+              id="end_time"
+              step="3600"
+              name="end_time"
+              className="w-full p-2 rounded-md border border-primary/30 outline-none"
+            />
+          </label>
+        </div>
+        <label htmlFor="course" className="text-sm">
+          Course
+          <select
+            name="course"
+            id="course"
+            defaultValue=""
+            className="w-full p-2 rounded-md border border-primary/30 outline-none"
+          >
+            <option value="" disabled>
+              -- Course --
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="FBLT" className="p-4">
+              FBLT
+            </option>
+            <option value="AUD II" className="p-4">
+              AUD II
+            </option>
+            <option value="AUD I" className="p-4">
+              AUD I
+            </option>
+            <option value="ODLT I" className="p-4">
+              ODLT I
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+            <option value="ODLT II" className="p-4">
+              ODLT II
+            </option>
+          </select>
+        </label>
+        <label htmlFor="reoccurence">
+          Repeat
+          <select
+            name="reoccurence"
+            id="reoccurence"
+            defaultValue="once"
+            className="w-full p-2 rounded-md border border-primary/30 outline-none"
+          >
+            <option value="once" className="p-4">
+              Once
+            </option>
+            <option value="daily" className="p-4">
+              Daily
+            </option>
+            <option value="weekly" className="p-4">
+              Weekly
+            </option>
+            <option value="custom" className="p-4">
+              Custom
+            </option>
+          </select>
+        </label>
+        <button type="submit" className="w-full button1">
+          Book Hall
+        </button>
+      </form>
+      </section>
+      <section className="flex flex-col gap-2">
+      <h1 className="text-lg lg:block">Reservations</h1>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+        <ReservationCard
+          session="11:00-12:00"
+          course="MTH 202"
+          hall="ODLT II"
+        />
+        {/* Lecture */}
+        <ReservationCard
+          session="11:00-12:00"
+          course="MTH 202"
+          hall="ODLT II"
+        />
+        {/* Lecture */}
+        <ReservationCard
+          session="11:00-12:00"
+          course="MTH 202"
+          hall="ODLT II"
+        />
+
+      </div>
+
+      </section>
+
+    </aside>
   );
 }

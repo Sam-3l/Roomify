@@ -1,20 +1,22 @@
-export default function HallCard(props) {
+export default function PseudoHallCard(props) {
+  
   let classname;
 
   if (props.status === "vacant") {
     classname =
-      "p-1 px-4 w-max font-bold rounded-full capitalize bg-green-100 text-green-950";
+      "p-1 px-4 w-max font-semibold rounded-full capitalize bg-green-100 text-green-950";
   } else if (props.status === "pending") {
     classname =
       "p-1 px-4 w-max font-semibold rounded-full capitalize bg-neutral-200 text-neutral-950";
   } else if (props.status === "in use") {
     classname =
-      "p-1 px-4 w-max font-bold rounded-full capitalize bg-red-100 text-red-950";
+      "p-1 px-4 w-max font-semibold rounded-full capitalize bg-red-100 text-red-950";
   }
 
+
   return (
-    <div className="flex flex-col custom-shadow md:items-center md:grid md:grid-cols-4 p-6 md:py-3 gap-4 bg-white md:justify-between rounded-md">
-      <div className="flex justify-between md:justify-normal items-center">
+    <div className="flex custom-shadow flex-col lg:items-center lg:grid lg:grid-cols-4 p-6 lg:py-3 gap-4 bg-white lg:justify-between rounded-md">
+      <div className="flex justify-between lg:justify-normal items-center">
         <p className="text-lg text-secondary"> {props.hall} </p>
         <button className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer ">
           <svg
@@ -28,12 +30,12 @@ export default function HallCard(props) {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+              d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"  
             />
           </svg>
         </button>
       </div>
-      <div className="flex md:overflow-y md:hidden items-center justify-between">
+      <div className="flex lg:overflow-y lg:hidden items-center justify-between">
         <p className="flex gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,10 +51,11 @@ export default function HallCard(props) {
             <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
           </svg>
           {props.capacity}
+
         </p>
         <p className={classname}>{props.status}</p>
       </div>
-      <p className="hidden md:flex gap-2">
+      <p className="hidden lg:flex gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -67,9 +70,10 @@ export default function HallCard(props) {
           <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
         </svg>
         {props.capacity}
+
       </p>
-      <p className={`hidden md:inline-block ${classname}`}>{props.status}</p>
-      <button className="button1 w-full md:w-fit h-fit px-6 py-3 place-self-end">
+      <p className={`hidden lg:inline-block ${classname}`}>{props.status}</p>
+      <button className="button1 w-full lg:w-fit h-fit px-6 py-3 place-self-end">
         Book Hall
       </button>
     </div>

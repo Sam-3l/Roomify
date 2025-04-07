@@ -1,24 +1,24 @@
-import HallCard from "../Body/HallCard";
+import PseudoHallCard from "../Body/PseudoHallCard";
 
 export default function PseudoAvailableHalls() {
   return (
     <section className="flex py-6 flex-col gap-4 w-full">
       <div className="flex gap-4 ">
-        <h1 className="text-lg md:text-xl text-secondary">Vacant Halls</h1>
+        <h1 className="text-lg">Vacant Halls</h1>
       </div>
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] md:grid-cols-1 gap-4">
         {/* Hall */}
-        <HallCard hall="AUD II" capacity="200" status="Vacant" />
+        <PseudoHallCard hall="AUD II" capacity="200" status="vacant" />
         {/* Hall */}
-        <HallCard hall="1K SLT" capacity="1000" status="Vacant" />
+        <PseudoHallCard hall="1K SLT" capacity="1000" status="in use" />
         {/* Hall */}
-        <HallCard hall="BOO C" capacity="300" status="Vacant" />
+        <PseudoHallCard hall="BOO C" capacity="300" status="vacant" />
         {/* Hall */}
-        <HallCard hall="FBLT" capacity="300" status="Vacant" />
+        <PseudoHallCard hall="FBLT" capacity="300" status="pending" />
         {/* Hall */}
-        <HallCard hall="LAW 209" capacity="400" status="Vacant" />
+        <PseudoHallCard hall="LAW 209" capacity="400" status="in use" />
         {/* Hall */}
-        <HallCard hall="PHY 291" capacity="70" status="Vacant" />
+        <PseudoHallCard hall="PHY 291" capacity="70" status="pending" />
       </div>
     </section>
   );
