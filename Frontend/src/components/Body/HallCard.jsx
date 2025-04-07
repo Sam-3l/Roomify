@@ -6,7 +6,7 @@ export default function HallCard(props) {
       "p-1 px-4 w-max font-bold rounded-full capitalize bg-green-100 text-green-950";
   } else if (props.status === "pending") {
     classname =
-      "text-sm p-1 px-4 w-max font-semibold rounded-full capitalize bg-neutral-200 text-neutral-950";
+      "p-1 px-4 w-max font-semibold rounded-full capitalize bg-neutral-200 text-neutral-950";
   } else if (props.status === "in use") {
     classname =
       "p-1 px-4 w-max font-bold rounded-full capitalize bg-red-100 text-red-950";

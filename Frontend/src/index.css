@@ -46,7 +46,7 @@ body{
   cursor: grab;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #333333;
+  background-color: hsl(0, 0%, 20%);
 }
 ::-webkit-scrollbar-thumb:active {
   background-color: #052659;
