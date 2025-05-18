@@ -10,11 +10,6 @@ export default function ClassSummary(){
                 <option value="CHM 204" className="p-2">CHM 204</option>
                </select>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                    <div className="col-span-1 flex flex-col border gap-2 border-primary/30 p-4 rounded-md ">
-                        <p className="text-sm">Total Students</p>
-                        <p className="text-4xl text-secondary">1124</p>
-                        <p className="text-sm p-1 px-4 w-max font-semibold rounded-full capitalize bg-neutral-200 text-neutral-950">0 students added recently</p>
-                    </div>
                     <div className="col-span-1 flex flex-col border gap-2 border-primary/30 p-6 rounded-md ">
                         <p className="text-sm">Avg. Attendance</p>
                         <div className="flex flex-col gap">
