@@ -9,20 +9,20 @@ export default function ClassSummary(){
                 <option value="CHM 204" className="p-2">CHM 204</option>
                 <option value="CHM 204" className="p-2">CHM 204</option>
                </select>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div className="col-span-1 flex flex-col border gap-2 border-primary/30 p-6 rounded-md ">
-                        <p className="text-sm">Avg. Attendance</p>
-                        <div className="flex flex-col gap">
-                            <p className="text-3xl text-secondary">67%</p>
-                            <p className="text-sm text-green-800">+24% from last week</p>
+                        <p className="text-sm p-1 px-3 rounded-md bg-neutral-200 w-fit">Avg. Attendance</p>
+                        <div className="flex flex-col gap-2">
+                            <p className="text-3xl text-secondary">67%</p> 
+                            <p className="text-sm text-green-800 p-0.5 px-3 rounded-md bg-green-100 w-fit">+24% from last week</p>
                             </div>
                         <AttendanceChart/>
                     </div>
                     <div className="col-span-1 flex flex-col border gap-2 border-primary/30 p-6 rounded-md ">
-                        <p className="text-sm">High Engagement Students</p>
-                        <div className="flex flex-col gap">
+                        <p className="text-sm p-1 px-3 rounded-md bg-neutral-200 w-fit" title="Students with attendance above the class average">High Engagement Students</p>
+                        <div className="flex flex-col gap-2">
                             <p className="text-3xl text-secondary">278</p>
-                            <p className="text-sm text-red-950">4 students dropped below class avg.</p>
+                            <p className="text-sm text-red-950 p-0.5 px-3 rounded-md bg-red-100 w-fit">4 students dropped below class avg</p>
                             </div>
                         <EngagementChart/>
                     </div>

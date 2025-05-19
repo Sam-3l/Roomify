@@ -14,24 +14,23 @@ export default function EngagementChart() {
         <BarChart
           width="100%"
           height="100%"
-          layout="vertical"
           margin={{
             right: 5,
           }}
           padding={0}
           data={[
-            { range: ">90%", attendance: 8 },
-            { range: "80-90%", attendance: 22 },
-            { range: "70-80%", attendance: 50 },
-            { range: "50-70", attendance: 70 },
-            { range: "30-50%", attendance: 33 },
-            { range: "<30%", attendance: 40 },
+            { attendance: "<30%", students: 40 },
+            { attendance: "30-50%", students: 33 },
+            { attendance: "50-70%", students: 70 },
+            { attendance: "70-80%", students: 50 },
+            { attendance: "80-90%", students: 22 },
+            { attendance: ">90%", students: 8 },
           ]}
         >
-          <XAxis type="number" />
-          <YAxis dataKey="range" type="category" width={60} />
+          <YAxis type="number" width={30}/>
+          <XAxis dataKey="attendance" type="category"/>
           <Tooltip />
-          <Bar type="monotone" dataKey="attendance" fill="hsl(2,0%,60%)" />
+          <Bar type="monotone" dataKey="students" fill="#333333" />
         </BarChart>
       </ResponsiveContainer>
   );
