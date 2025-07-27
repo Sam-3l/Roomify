@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #333333;
-  --color-secondary: #000000;
+  --color-primary: hsl(0,0%,35%);
+  --color-secondary:hsl(0,0%,0%);
   --color-tertiary: #052659;
   --color-bg: #f5f5f5;
   --font-sans: monospace;
@@ -35,7 +35,7 @@ body{
   @apply border cursor-pointer text-center text-white border-white py-2.5 px-6 rounded font-bold transition duration-300;
 }
 .custom-shadow{
-  @apply shadow-lg shadow-secondary/5
+  @apply shadow-md shadow-secondary/4
 }
 ::-webkit-scrollbar {
   width: 7px;
